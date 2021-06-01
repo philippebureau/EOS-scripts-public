@@ -26,7 +26,7 @@ def main():
                 exit()
         else:
                 neighbor_name = get_neighbor_name()
-                switch.runCmds(1, ['ping %s.live.rt.cbcrc.ca' % (neighbor_name)])
+                switch.runCmds(1, ['ping %s' % (neighbor_name)])
 
 if __name__ == '__main__':
    main()
