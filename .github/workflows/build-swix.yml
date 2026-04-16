@@ -3,7 +3,6 @@ name: Build SWIX
 on:
   push:
     branches: [main]
-    tags: ['v*']
   pull_request:
   workflow_dispatch:
 
@@ -45,6 +44,8 @@ jobs:
       packages: read
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -59,6 +60,24 @@ jobs:
           docker cp "$id":/swix/. dist/
           docker rm "$id"
 
+      - name: Get version from spec
+        id: version
+        run: |
+          VERSION=$(grep '^Version:' 'Ping LLDP neighbor/pingLldpIP.spec' | awk '{print $2}')
+          echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Create tag if it doesn't exist
+        run: |
+          TAG=${{ steps.version.outputs.tag }}
+          if git ls-remote --tags origin | grep -q "refs/tags/${TAG}$"; then
+            echo "Tag ${TAG} already exists, skipping"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag "${TAG}"
+            git push origin "${TAG}"
+          fi
+
       - name: Upload SWIX artifact
         uses: actions/upload-artifact@v4
         with:
@@ -67,7 +86,7 @@ jobs:
           retention-days: 30
 
       - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.tag }}
           files: dist/*.swix
