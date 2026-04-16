@@ -1,6 +1,6 @@
 Summary: Ping LLDP neighbor scripts for Arista EOS
 Name: pingLldpIP
-Version: 1.0.1
+Version: 1.0.2
 Release: 1
 License: Apache-2.0
 Group: EOS/Extension
@@ -28,6 +28,9 @@ install -m 755 ping_lldp_neighbor-mgmtAddress.py $RPM_BUILD_ROOT/usr/bin/
 /usr/bin/ping_lldp_neighbor-mgmtAddress.py
 
 %changelog
+* Wed Apr 16 2026 Westley Dion <westley.dion@arista.com> - 1.0.2-1
+- Update CLAUDE.md and workflow documentation
+
 * Wed Apr 16 2026 Westley Dion <westley.dion@arista.com> - 1.0.1-1
 - Handle missing LLDP management address gracefully in ping_lldp_neighbor-mgmtAddress.py
 
