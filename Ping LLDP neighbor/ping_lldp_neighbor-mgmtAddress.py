@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #This script can be used to force communication for quiet devices
 #It was created to force an ARP entry creation for host route injection
@@ -17,8 +17,16 @@ def get_neighbor_ip():
         interface = sys.argv[1]
         cmdList = [ "enable" , "show lldp neighbors %s detail" % (interface) ]
         cmdResponse = switch.runCmds(1, cmdList)
-        neighbor_ip = cmdResponse[1]['lldpNeighbors'][interface]['lldpNeighborInfo'][int('0')]['managementAddresses'][int(0)]['address']
-        return neighbor_ip
+        neighbor_info = cmdResponse[1]['lldpNeighbors'][interface]['lldpNeighborInfo']
+        if not neighbor_info:
+                print('No LLDP neighbor found on %s' % interface)
+                exit(1)
+        mgmt_addrs = neighbor_info[0]['managementAddresses']
+        if not mgmt_addrs:
+                print('LLDP neighbor on %s does not advertise a management address' % interface)
+                exit(1)
+        return mgmt_addrs[0]['address']
+
 def main():
         if len(args) == 0:
                 print('The script requires one interface as argument')
