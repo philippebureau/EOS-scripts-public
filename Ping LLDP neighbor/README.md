@@ -28,6 +28,6 @@ Example : Execute the script to ping interface ethernet 4 neighbor using the man
 event-handler wake-movable-eth4
     trigger on-intf Ethernet4 operstatus
     delay 30
-    action bash python /mnt/flash/ping_lldp_neighbor-mgmtAddress.py Ethernet4
+    action bash python /bin/ping_lldp_neighbor-mgmtAddress.py Ethernet4
 ```
 **Note: delay should be adjusted to match the envronment variables such as LLDP intervals or if portfast is configured**

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #This script can be used to force communication for quiet devices
 #It was created to force an ARP entry creation for host route injection
