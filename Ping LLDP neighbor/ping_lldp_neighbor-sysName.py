@@ -21,12 +21,12 @@ def get_neighbor_name():
         return neighbor_name
 def main():
         if len(args) == 0:
-                print 'The script requires one interface as argument'
-                print 'Ex: python ping_lldp_neighbor.py Ethernet8'
+                print('The script requires one interface as argument')
+                print('Ex: python ping_lldp_neighbor.py Ethernet8')
                 exit()
         else:
                 neighbor_name = get_neighbor_name()
                 switch.runCmds(1, ['ping %s' % (neighbor_name)])
 
 if __name__ == '__main__':
-   main()
+        main()
