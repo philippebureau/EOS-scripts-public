@@ -41,6 +41,7 @@ jobs:
     needs: publish-builder
     if: github.event_name != 'pull_request'
     permissions:
+      contents: write
       packages: read
 
     steps:
