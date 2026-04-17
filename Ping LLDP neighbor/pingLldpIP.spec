@@ -1,7 +1,7 @@
 Summary: Ping LLDP neighbor scripts for Arista EOS
 Name: pingLldpIP
 Version: 1.0.3
-Release: 1
+Release: 2
 License: Apache-2.0
 Group: EOS/Extension
 BuildArch: noarch
@@ -27,7 +27,38 @@ install -m 755 ping_lldp_neighbor-mgmtAddress.py $RPM_BUILD_ROOT/usr/bin/
 /usr/bin/ping_lldp_neighbor-sysName.py
 /usr/bin/ping_lldp_neighbor-mgmtAddress.py
 
+%post
+python3 -c "
+from jsonrpclib import Server
+switch = Server('unix:/var/run/command-api.sock')
+switch.runCmds(1, [
+    'enable',
+    'configure',
+    'alias ping-lldp-sysname bash ping_lldp_neighbor-sysName.py %1',
+    'alias ping-lldp-mgmt bash ping_lldp_neighbor-mgmtAddress.py %1',
+    'end',
+    'write'
+])
+" || true
+
+%preun
+python3 -c "
+from jsonrpclib import Server
+switch = Server('unix:/var/run/command-api.sock')
+switch.runCmds(1, [
+    'enable',
+    'configure',
+    'no alias ping-lldp-sysname',
+    'no alias ping-lldp-mgmt',
+    'end',
+    'write'
+])
+" || true
+
 %changelog
+* Thu Apr 17 2026 Westley Dion <westley.dion@arista.com> - 1.0.3-2
+- Add %post/%preun to configure CLI aliases on install/uninstall
+
 * Wed Apr 16 2026 Westley Dion <westley.dion@arista.com> - 1.0.3-1
 - Refactor scripts: remove unused import, f-strings, interface as parameter, add LLDP guard to sysName script
 
