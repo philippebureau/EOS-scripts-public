@@ -1,5 +1,29 @@
 # EOS-scripts-public
 
-These scripts can be used manually or in conjuction with event-handler
+EOS scripts that can be used manually or in conjunction with event-handler.
 
-scp -v pingLldpIP.noarch.swix <USERNAME>@<IP>://mnt/flash/pingLldpIP.noarch.swix
+## Installation
+
+### 1. Download the SWIX to the switch flash
+
+From EOS bash:
+```bash
+cd /mnt/flash && wget $(wget -qO- https://api.github.com/repos/wdion-arista/EOS-scripts-public/releases/latest | python3 -c "import sys,json; assets=json.load(sys.stdin)['assets']; print(next(a['browser_download_url'] for a in assets if a['name'].startswith('pingLldpIP') and a['name'].endswith('.swix')))")
+```
+
+This resolves the latest release and downloads the versioned SWIX file automatically.
+
+### 2. Install the extension
+
+From EOS enable mode (replace the filename with the version that was downloaded):
+```
+copy flash:pingLldpIP-<version>.noarch.swix extension:
+extension pingLldpIP-<version>.noarch.swix
+show extensions
+```
+
+### 3. Persist across reboots
+
+```
+copy installed-extensions boot-extensions
+```
