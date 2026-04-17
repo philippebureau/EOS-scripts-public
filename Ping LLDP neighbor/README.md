@@ -1,10 +1,8 @@
 # Ping LLDP Neighbor
 
-These scripts can be used to ping an interface neighbor using LLDP data
+These scripts ping an interface's LLDP neighbor to force ARP entry creation for host route injection.
 
-They all need an argument to specify the target interface
-
-The scripts use unix socket to interact with EOS and requires the following configuration
+The scripts use the unix socket to interact with EOS and require the following configuration:
 
 ```
 management api http-commands
@@ -12,22 +10,24 @@ management api http-commands
     no shutdown
 ```
 
-The script should be copied in flash before use
+## Usage
 
-Syntax from EOS : 'bash python /mnt/flash/<scriptname> <interface>'
+After installing the SWIX extension, aliases are configured automatically:
 
-Example : Execute the script to ping interface ethernet 4 neighbor using the system name 
 ```
-bash python /bin/ping_lldp_neighbor-sysName.py Ethernet4
+ping-lldp-sysname Ethernet4
+ping-lldp-mgmt Ethernet4
 ```
 
-The script can be used in event-handler.
+## Event-handler
 
-Example : Execute the script to ping interface ethernet 4 neighbor using the management IP when the interface comes up
+Example: Ping Ethernet4's neighbor by management IP when the interface comes up:
+
 ```
-event-handler wake-movable-eth4
+event-handler ping-lldp-eth4
     trigger on-intf Ethernet4 operstatus
     delay 30
-    action bash python /bin/ping_lldp_neighbor-mgmtAddress.py Ethernet4
+    action bash ping_lldp_neighbor-mgmtAddress.py Ethernet4
 ```
-**Note: delay should be adjusted to match the envronment variables such as LLDP intervals or if portfast is configured**
+
+**Note: adjust the delay to match your environment — LLDP convergence interval or portfast configuration.**
