@@ -15,7 +15,11 @@ def get_neighbor_name(interface):
     if not neighbor_info:
         print(f'No LLDP neighbor found on {interface}')
         sys.exit(1)
-    return neighbor_info[0]['systemName']
+    system_name = neighbor_info[0].get('systemName', '').strip()
+    if not system_name:
+        print(f'LLDP neighbor on {interface} does not advertise a system name')
+        sys.exit(1)
+    return system_name
 
 def main():
     if len(sys.argv) < 2:
