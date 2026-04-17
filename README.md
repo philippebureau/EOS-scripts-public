@@ -6,8 +6,8 @@ EOS scripts that can be used manually or in conjunction with event-handler.
 
 From EOS enable mode:
 ```
-copy https://github.com/wdion-arista/EOS-scripts-public/releases/download/v1.0.3/pingLldpIP-1.0.3-2.noarch.swix extension:
-extension pingLldpIP-1.0.3-2.noarch.swix
+copy https://github.com/wdion-arista/EOS-scripts-public/releases/download/v1.0.4/pingLldpIP-1.0.4-1.noarch.swix extension:
+extension pingLldpIP-1.0.4-1.noarch.swix
 show extensions
 ```
 
