@@ -66,16 +66,17 @@ jobs:
           VERSION=$(grep '^Version:' 'Ping LLDP neighbor/pingLldpIP.spec' | awk '{print $2}')
           echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
 
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Update README with current SWIX version
         run: |
           SWIX_NAME=$(basename dist/pingLldpIP-*.noarch.swix)
           TAG=${{ steps.version.outputs.tag }}
-          # Update the release tag in the download URL
           sed -i "s|releases/download/v[^/]*/|releases/download/${TAG}/|g" README.md
-          # Update all versioned SWIX filenames
           sed -i "s/pingLldpIP-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*-[0-9][0-9]*\.noarch\.swix/${SWIX_NAME}/g" README.md
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
           git diff --staged --quiet || git commit -m "chore: update README to ${SWIX_NAME} [skip ci]"
           git push
@@ -86,8 +87,6 @@ jobs:
           if git ls-remote --tags origin | grep -q "refs/tags/${TAG}$"; then
             echo "Tag ${TAG} already exists, skipping"
           else
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
             git tag "${TAG}"
             git push origin "${TAG}"
           fi
