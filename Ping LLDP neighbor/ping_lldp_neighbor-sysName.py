@@ -1,32 +1,30 @@
 #!/usr/bin/env python3
 
-#This script can be used to force communication for quiet devices
-#It was created to force an ARP entry creation for host route injection
-#It requires to pass an interface name as an argument.
-#SYNTAX: python ping_lldp_neighbor.py <interface>
-#       Ex: python ping_lldp_neighbor.py Ethernet8
+# Pings an LLDP neighbor by system name to force ARP entry creation for host route injection.
+# SYNTAX: ping_lldp_neighbor-sysName.py <interface>
+#    Ex: ping_lldp_neighbor-sysName.py Ethernet8
 
-import json
 from jsonrpclib import Server
 import sys
 
-args = sys.argv[1:]
-switch = Server( "unix:/var/run/command-api.sock" )
+switch = Server("unix:/var/run/command-api.sock")
 
-def get_neighbor_name():
-        interface = sys.argv[1]
-        cmdList = [ "enable" , "show lldp neighbors %s detail" % (interface) ]
-        cmdResponse = switch.runCmds(1, cmdList)
-        neighbor_name = cmdResponse[1]['lldpNeighbors'][interface]['lldpNeighborInfo'][int('0')]['systemName']
-        return neighbor_name
+def get_neighbor_name(interface):
+    cmdResponse = switch.runCmds(1, ["enable", f"show lldp neighbors {interface} detail"])
+    neighbor_info = cmdResponse[1]['lldpNeighbors'][interface]['lldpNeighborInfo']
+    if not neighbor_info:
+        print(f'No LLDP neighbor found on {interface}')
+        sys.exit(1)
+    return neighbor_info[0]['systemName']
+
 def main():
-        if len(args) == 0:
-                print('The script requires one interface as argument')
-                print('Ex: python ping_lldp_neighbor.py Ethernet8')
-                exit()
-        else:
-                neighbor_name = get_neighbor_name()
-                switch.runCmds(1, ['ping %s' % (neighbor_name)])
+    if len(sys.argv) < 2:
+        print('The script requires one interface as argument')
+        print('Ex: ping_lldp_neighbor-sysName.py Ethernet8')
+        sys.exit(1)
+    interface = sys.argv[1]
+    neighbor_name = get_neighbor_name(interface)
+    switch.runCmds(1, [f'ping {neighbor_name}'])
 
 if __name__ == '__main__':
-        main()
+    main()

@@ -18,7 +18,7 @@ Syntax from EOS : 'bash python /mnt/flash/<scriptname> <interface>'
 
 Example : Execute the script to ping interface ethernet 4 neighbor using the system name 
 ```
-bash python /mnt/flash/ping_lldp_neighbor-sysName.py Ethernet4
+bash python /bin/ping_lldp_neighbor-sysName.py Ethernet4
 ```
 
 The script can be used in event-handler.

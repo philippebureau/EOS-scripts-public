@@ -1,7 +1,7 @@
 Summary: Ping LLDP neighbor scripts for Arista EOS
 Name: pingLldpIP
-Version: 1.0.2
-Release: 3
+Version: 1.0.3
+Release: 1
 License: Apache-2.0
 Group: EOS/Extension
 BuildArch: noarch
@@ -28,6 +28,9 @@ install -m 755 ping_lldp_neighbor-mgmtAddress.py $RPM_BUILD_ROOT/usr/bin/
 /usr/bin/ping_lldp_neighbor-mgmtAddress.py
 
 %changelog
+* Wed Apr 16 2026 Westley Dion <westley.dion@arista.com> - 1.0.3-1
+- Refactor scripts: remove unused import, f-strings, interface as parameter, add LLDP guard to sysName script
+
 * Wed Apr 16 2026 Westley Dion <westley.dion@arista.com> - 1.0.2-3
 - Auto-update README with current SWIX version on build
 
