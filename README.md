@@ -17,8 +17,8 @@ This resolves the latest release and downloads the versioned SWIX file automatic
 
 From EOS enable mode:
 ```
-copy flash:pingLldpIP-1.0.2-2.noarch.swix extension:
-extension pingLldpIP-1.0.2-2.noarch.swix
+copy flash:pingLldpIP-1.0.2-3.noarch.swix extension:
+extension pingLldpIP-1.0.2-3.noarch.swix
 show extensions
 ```
 
