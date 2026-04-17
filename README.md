@@ -8,10 +8,8 @@ EOS scripts that can be used manually or in conjunction with event-handler.
 
 From EOS bash:
 ```bash
-cd /mnt/flash && wget $(wget -qO- https://api.github.com/repos/wdion-arista/EOS-scripts-public/releases/latest | python3 -c "import sys,json; assets=json.load(sys.stdin)['assets']; print(next(a['browser_download_url'] for a in assets if a['name'].startswith('pingLldpIP') and a['name'].endswith('.swix')))")
+cd /mnt/flash && wget https://github.com/wdion-arista/EOS-scripts-public/releases/download/v1.0.2/pingLldpIP-1.0.2-3.noarch.swix
 ```
-
-This resolves the latest release and downloads the versioned SWIX file automatically.
 
 ### 2. Install the extension
 

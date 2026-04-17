@@ -69,6 +69,10 @@ jobs:
       - name: Update README with current SWIX version
         run: |
           SWIX_NAME=$(basename dist/pingLldpIP-*.noarch.swix)
+          TAG=${{ steps.version.outputs.tag }}
+          # Update the release tag in the download URL
+          sed -i "s|releases/download/v[^/]*/|releases/download/${TAG}/|g" README.md
+          # Update all versioned SWIX filenames
           sed -i "s/pingLldpIP-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*-[0-9][0-9]*\.noarch\.swix/${SWIX_NAME}/g" README.md
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
