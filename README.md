@@ -15,10 +15,10 @@ This resolves the latest release and downloads the versioned SWIX file automatic
 
 ### 2. Install the extension
 
-From EOS enable mode (replace the filename with the version that was downloaded):
+From EOS enable mode:
 ```
-copy flash:pingLldpIP-<version>.noarch.swix extension:
-extension pingLldpIP-<version>.noarch.swix
+copy flash:pingLldpIP-1.0.2-2.noarch.swix extension:
+extension pingLldpIP-1.0.2-2.noarch.swix
 show extensions
 ```
 
