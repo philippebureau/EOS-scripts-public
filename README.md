@@ -8,15 +8,15 @@ EOS scripts that can be used manually or in conjunction with event-handler.
 
 From EOS bash:
 ```bash
-cd /mnt/flash && wget https://github.com/wdion-arista/EOS-scripts-public/releases/download/v1.0.2/pingLldpIP-1.0.2-3.noarch.swix
+cd /mnt/flash && wget https://github.com/wdion-arista/EOS-scripts-public/releases/download/v1.0.3/pingLldpIP-1.0.3-1.noarch.swix
 ```
 
 ### 2. Install the extension
 
 From EOS enable mode:
 ```
-copy flash:pingLldpIP-1.0.2-3.noarch.swix extension:
-extension pingLldpIP-1.0.2-3.noarch.swix
+copy flash:pingLldpIP-1.0.3-1.noarch.swix extension:
+extension pingLldpIP-1.0.3-1.noarch.swix
 show extensions
 ```
 
