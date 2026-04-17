@@ -1,7 +1,7 @@
 Summary: Ping LLDP neighbor scripts for Arista EOS
 Name: pingLldpIP
-Version: 1.0.3
-Release: 2
+Version: 1.0.4
+Release: 1
 License: Apache-2.0
 Group: EOS/Extension
 BuildArch: noarch
@@ -56,6 +56,9 @@ switch.runCmds(1, [
 " || true
 
 %changelog
+* Thu Apr 17 2026 Westley Dion <westley.dion@arista.com> - 1.0.4-1
+- Handle missing or empty systemName in LLDP neighbor info
+
 * Thu Apr 17 2026 Westley Dion <westley.dion@arista.com> - 1.0.3-2
 - Add %post/%preun to configure CLI aliases on install/uninstall
 
