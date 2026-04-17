@@ -19,6 +19,26 @@ ping-lldp-sysname Ethernet4
 ping-lldp-mgmt Ethernet4
 ```
 
+## Optional ping parameters
+
+Configure via EOS daemon block — all options are optional and fall back to defaults:
+
+```
+daemon pingLldpIP
+   option ping-count value 5
+   option ping-timeout value 2
+   option ping-source value Management0
+   option ping-vrf value MGMT
+   no shutdown
+```
+
+| Option | Default | Description |
+|---|---|---|
+| `ping-count` | 2 | Number of ping packets |
+| `ping-timeout` | 2 | Ping timeout in seconds |
+| `ping-source` | *(none)* | Source interface or IP |
+| `ping-vrf` | *(default VRF)* | VRF to ping from |
+
 ## Event-handler
 
 Example: Ping Ethernet4's neighbor by management IP when the interface comes up:
