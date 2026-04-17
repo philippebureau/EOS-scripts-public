@@ -28,8 +28,7 @@ RUN set -e && \
     printf "format: 1\nprimaryRpm: %s\n%s-sha1: %s\n" \
         "$RPM_NAME" "$RPM_NAME" "$SHA1" > /swix/manifest.txt && \
     cd /swix && \
-    zip "$SWIX_NAME" manifest.txt "$RPM_NAME" && \
-    ln -s "$SWIX_NAME" latest.swix
+    zip "$SWIX_NAME" manifest.txt "$RPM_NAME"
 
 # Export stage — only the SWIX file
 FROM scratch AS artifact
