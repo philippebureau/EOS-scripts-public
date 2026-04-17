@@ -1,6 +1,6 @@
 Summary: Ping LLDP neighbor scripts for Arista EOS
 Name: pingLldpIP
-Version: 1.0.4
+Version: 1.0.5
 Release: 1
 License: Apache-2.0
 Group: EOS/Extension
@@ -56,6 +56,9 @@ switch.runCmds(1, [
 " || true
 
 %changelog
+* Thu Apr 17 2026 Westley Dion <westley.dion@arista.com> - 1.0.5-1
+- Add daemon config support for ping-count, ping-timeout, ping-source, ping-vrf options
+
 * Thu Apr 17 2026 Westley Dion <westley.dion@arista.com> - 1.0.4-1
 - Handle missing or empty systemName in LLDP neighbor info
 
